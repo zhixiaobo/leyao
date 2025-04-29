@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeyaoQt</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部区域 -->
+        <header class="header">
+            <h1 id="headerTitle">LeyaoQt</h1>
+        </header>
+        
+        <!-- 设置图标 - 悬浮在右上角 -->
+        <div class="settings-icon" id="settingsIcon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </div>
+        
+        <!-- 动态块区域 -->
+        <main class="blocks-container" id="blocksContainer">
+            <!-- 动态块将通过JavaScript添加 -->
+        </main>
+        
+        <!-- 底部区域 -->
+        <footer class="footer">
+            <div class="marquee-container">
+                <div class="marquee-content" id="marqueeContent">
+                    
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- 登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h2 style="text-align: center;">登录</h2>
+            <div class="form-group">
+                <label for="username">账号</label>
+                <input type="text" id="username" placeholder="请输入账号">
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" placeholder="请输入密码">
+            </div>
+            <button id="loginButton" class="login-button">登录</button>
+            <p id="loginMessage" class="login-message"></p>
+        </div>
+    </div>
+    
+    <!-- 自定义通知 - 移除关闭按钮 -->
+    <div class="notification" id="notification">
+        <div class="notification-icon" id="notificationIcon">✓</div>
+        <div class="notification-message" id="notificationMessage">操作成功</div>
+    </div>
+    
+    <script src="script.js"></script>
+    <!-- 修复的脚本 -->
+    <script>
+        // 只允许通过关闭按钮关闭模态框
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('loginModal').style.display = 'none';
+            // 清空输入框和消息
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('loginMessage').textContent = '';
+        });
+        
+        // 阻止点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            // 不执行任何操作，只阻止冒泡
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>

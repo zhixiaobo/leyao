@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <!-- Sortable.js 排序库 -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body class="admin-body">
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>网站管理后台</h1>
+            <button id="logoutButton" class="logout-button">退出登录</button>
+        </header>
+        
+        <div class="admin-content">
+            <!-- 账号密码设置 -->
+            <section class="admin-section">
+                <h2>1.账号安全</h2>
+                <div class="form-group">
+                    <label for="adminUsername">账号</label>
+                    <input type="text" id="adminUsername" placeholder="输入管理员账号">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">密码</label>
+                    <input type="text" id="adminPassword" placeholder="输入管理员密码">
+                </div>
+                <button id="saveAdminCredentials" class="save-button">保存</button>
+            </section>
+            
+            <!-- 顶部标题设置 -->
+            <section class="admin-section">
+                <h2>2.顶部标题</h2>
+                <div class="form-group">
+                    <input type="text" id="headerTitleInput" placeholder="输入标题文字">
+                </div>
+                <button id="saveHeaderTitle" class="save-button">保存</button>
+            </section>
+            
+            <!-- 动态块设置 -->
+            <section class="admin-section">
+                <h2>3.导航方块</h2>
+                <div id="blocksList" class="blocks-list">
+                    <!-- 动态块列表将通过JavaScript添加 -->
+                </div>
+                <button id="addBlockButton" class="add-button">添加</button>
+            </section>
+            
+            <!-- 底部滚动文字设置 -->
+            <section class="admin-section">
+                <h2>4.底部文字</h2>
+                <div class="form-group">
+                    <textarea id="marqueeTextInput" placeholder="输入底部滚动文字"></textarea>
+                </div>
+                <button id="saveMarqueeText" class="save-button">保存</button>
+            </section>
+        </div>
+    </div>
+
+    <!-- 添加/编辑块的模态框 -->
+    <div class="modal" id="blockModal">
+        <div class="modal-content">
+            <span class="close-button" id="closeBlockModal">&times;</span>
+            <h2 id="blockModalTitle">添加新块</h2>
+            <div class="form-group">
+                <label for="blockText">显示文字</label>
+                <input type="text" id="blockText" placeholder="输入显示文字">
+            </div>
+            <div class="form-group">
+                <label for="blockLink">跳转链接</label>
+                <input type="text" id="blockLink" placeholder="输入跳转链接">
+            </div>
+            <input type="hidden" id="blockId" value="">
+            <button id="saveBlockButton" class="save-button">保存</button>
+        </div>
+    </div>
+    
+    <!-- 自定义通知 - 移除关闭按钮 -->
+    <div class="notification" id="notification">
+        <div class="notification-icon" id="notificationIcon">✓</div>
+        <div class="notification-message" id="notificationMessage">操作成功</div>
+    </div>
+    
+    <script src="admin.js"></script>
+    <!-- 修复的脚本 -->
+    <script>
+        // 只允许通过关闭按钮关闭模态框
+        document.getElementById('closeBlockModal').addEventListener('click', function() {
+            document.getElementById('blockModal').style.display = 'none';
+        });
+        
+        // 阻止点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            // 不执行任何操作，只阻止冒泡
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>

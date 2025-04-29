@@ -1,0 +1,427 @@
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none; /* 移除焦点时的轮廓 */
+}/* 通用样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+
+:root {
+    --primary-color: #E67E22; /* 低饱和度橙色 */
+    --text-on-primary: #FFFFFF; /* 主色上的文字颜色 - 白色 */
+    --background-color: #F9F5F0; /* 页面背景色 - 米白色 */
+    --text-color: #2C3E50; /* 文字颜色 - 深棕色 */
+    --border-color: #E8E0D8; /* 边框颜色 - 浅棕色 */
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 顶部区域样式 */
+.header {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    padding: 15px 18px;
+    text-align: center;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+}
+
+.settings-icon {
+    position: fixed;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+    z-index: 20;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent; /* 设置为透明 */
+    border-radius: 0; /* 移除圆角 */
+    box-shadow: none; /* 移除阴影 */
+}
+
+.settings-icon svg {
+    width: 20px;
+    height: 20px;
+    color: #f3f3f3; /* 灰色图标 */
+}
+
+/* 动态块区域样式 */
+.blocks-container {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    overflow-y: auto;
+    padding-bottom: 60px; /* 为底部区域留出空间 */
+    background-color: var(--background-color);
+}
+
+.blocks-container .block {
+    flex: 1 0 calc(50% - 15px); /* 默认两列布局，减去间距 */
+    min-width: calc(50% - 15px); /* 强制最小宽度为半宽减去间距 */
+    max-width: 100%; /* 单个块时不超过容器宽度 */
+    background-color: #FFFFFF; /* 白色背景 */
+    border: 1px solid var(--primary-color); /* 添加主色边框 */
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    box-sizing: border-box;
+}
+
+/* 当只有一个块时的特殊处理 */
+.blocks-container.single-block .block {
+    flex: 1 0 100%;
+    min-width: 100%;
+}
+
+.block h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    word-break: break-word;
+    color: var(--primary-color); /* 文字使用主色 */
+}
+
+/* 底部区域样式 */
+.footer {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    padding: 8px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.marquee-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333; /* 改为黑色 */
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    resize: none; /* 防止用户调整大小 */
+    height: 120px; /* 固定高度为5行 */
+    overflow-y: auto; /* 启用垂直滚动条 */
+}
+
+.login-button,
+.logout-button {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.save-button,
+.add-button {
+    background-color: white; /* 白色背景 */
+    color: var(--primary-color); /* 黄色文字 */
+    border: 2px solid var(--primary-color); /* 黄色边框 */
+    padding: 10px 18px; /* 稍微调整内边距补偿边框宽度 */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.save-button:hover,
+.add-button:hover {
+    background-color: #FFF8E1; /* 悬停时轻微变色 */
+}
+
+.login-message {
+    margin-top: 10px;
+    text-align: center;
+    color: #e74c3c;
+}
+
+/* 后台管理样式 */
+.admin-body {
+    background-color: var(--background-color);
+}
+
+.admin-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    padding: 15px 20px;
+    border-radius: 8px;
+}
+
+.admin-header h1 {
+    font-size: 1.5rem;
+}
+
+.logout-button {
+    width: auto;
+    padding: 8px 15px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.admin-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-section h2 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    color: var(--primary-color); /* 保持标题为黄色 */
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* 将表单元素和文本改为黑色 */
+.form-group input,
+.form-group textarea,
+.block-title,
+.block-content {
+    color: #333; /* 黑色文本 */
+}
+
+.blocks-list {
+    margin-bottom: 15px;
+}
+
+/* 拖拽排序相关样式 */
+.block-item {
+    transition: background-color 0.2s ease;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    overflow: hidden;
+}
+
+/* 块内容样式已经在下方定义，这里不重复 */
+
+/* 拖动时的视觉效果 */
+.sortable-ghost {
+    opacity: 0.5;
+    background-color: #f3f3f3;
+    border: 2px dashed var(--primary-color);
+}
+
+.sortable-chosen {
+    background-color: #f9f9f9;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sortable-drag {
+    opacity: 0.8;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 块内容区域 - 单行显示所有元素 */
+.block-content {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    cursor: move; /* 整个区域可拖动 */
+    gap: 10px; /* 元素之间的间距 */
+}
+
+.block-title {
+    font-weight: normal; /* 改为正常字重，不加粗 */
+    color: #333; /* 黑色 */
+    flex: 1; /* 占用剩余空间 */
+    text-overflow: ellipsis; /* 超出显示省略号 */
+    overflow: hidden;
+}
+
+.block-actions {
+    display: flex;
+    gap: 8px;
+    flex: 0 0 auto; /* 不伸缩，保持自然大小 */
+    margin-left: auto; /* 推到右侧 */
+}
+
+.edit-button,
+.delete-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.edit-button {
+    color: var(--primary-color);
+}
+
+.delete-button {
+    color: #e74c3c;
+}
+
+/* 通知样式更新 - 删除关闭按钮相关代码 */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: white;
+    color: var(--text-color);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    transform: translateX(120%);
+    transition: transform 0.3s ease-out;
+    max-width: 300px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.notification.success {
+    border-left-color: #4CAF50;
+}
+
+.notification.error {
+    border-left-color: #f44336;
+}
+
+.notification.warning {
+    border-left-color: #FF9800;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification-icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.notification-message {
+    flex-grow: 1;
+}
+
+/* 响应式调整 - 注意：我们不再在小屏幕上切换到单列，因为要求无论屏幕尺寸都保持两列 */
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%;
+    }
+    
+    /* 即使在小屏幕上，也不改变块的布局（保持两列） */
+}
